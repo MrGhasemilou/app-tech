@@ -92,21 +92,19 @@ function App() {
 
     const trailSprings = useTrail(cards.length, {
         from: {opacity: 0},
-        // to: {opacity: isLoading ? 0 : 1},
-        to: {opacity: 1},
+        to: {opacity: isLoading ? 0 : 1},
     });
 
     const titleSpring = useSpring({
-        transform: 'translateY(0px)',
+        transform: isLoading ? 'translateY(-200px)' : 'translateY(0px)',
         from: {
             transform: 'translateY(-200px)',
         },
         config: config.slow
-
     });
 
     const descriptionSpring = useSpring({
-        opacity: 1,
+        opacity: isLoading ? 0 : 1,
         from: {
             opacity: 0,
         },
@@ -114,7 +112,7 @@ function App() {
     });
 
     const buttonSpring = useSpring({
-        transform: 'scaleX(1)',
+        transform: isLoading ? 'scaleX(0)' : 'scaleX(1)',
         from: {
             transform: 'scaleX(0)',
         },
@@ -151,9 +149,9 @@ function App() {
     return (
         <div className="App">
             {
-                // isLoading
-                //     ? <div className="lds-dual-ring"/>
-                //     :
+                isLoading
+                    ? <div className="lds-dual-ring"/>
+                    :
                 <animated.main onWheel={handleWheel} style={mainSpring}>
                     <section className="first-section">
                         <div className="first-section_top">
@@ -194,18 +192,3 @@ function App() {
 }
 
 export default App;
-
-// const Card = ({id, image, title}) => {
-//     return (
-//         <animated.div  key={id} className="card">
-//             <div className="card_header">
-//                 <img src={image} alt=""/>
-//             </div>
-//
-//             <div className="card_body">
-//                 <p>{title}</p>
-//             </div>
-//
-//         </animated.div>
-//     )
-// };
